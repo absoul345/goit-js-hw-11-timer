@@ -1,18 +1,15 @@
-const refs = {
-    days: document.querySelector('[data-value="days"]'),
-    hours: document.querySelector('[data-value="hours"]'),
-    mins: document.querySelector('[data-value="mins"]'),
-    secs: document.querySelector('[data-value="secs"]'),
-    timerFace: document.getElementById("timer-1"),
-}
-
-
-
 class CountdownTimer {
     constructor({ selector, targetDate }) {
         this.selector = selector;
         this.targetDate = targetDate;
+
+        this.daysRef = document.querySelector(`${this.selector} [data-value="days"]`);
+        this.hoursRef = document.querySelector(`${this.selector} [data-value="hours"]`);
+        this.minsRef = document.querySelector(`${this.selector} [data-value="mins"]`);
+        this.secsRef = document.querySelector(`${this.selector} [data-value="secs"]`);
+        this.timerFace = document.getElementById("timer-1");
     }
+
     start() {
         const x = setInterval(() => {
             const currentTime = Date.now();
@@ -21,7 +18,7 @@ class CountdownTimer {
             this.updateCountText(timeComp);
             if (diffTime < 0) {
                 clearInterval(x);
-                refs.timerFace.textContent = "EXPIRED";
+                this.timerFace.textContent = "EXPIRED";
             }
             console.log(timeComp);
         }, 1000)
@@ -38,10 +35,10 @@ class CountdownTimer {
     }
 
     updateCountText({ days, hours, mins, secs }) {
-        refs.days.textContent = `${days}`;
-        refs.hours.textContent = `${hours}`;
-        refs.mins.textContent = `${mins}`;
-        refs.secs.textContent = `${secs}`;
+        this.daysRef.textContent = `${days}`;
+        this.hoursRef.textContent = `${hours}`;
+        this.minsRef.textContent = `${mins}`;
+        this.secsRef.textContent = `${secs}`;
     }
 }
 
@@ -49,7 +46,7 @@ class CountdownTimer {
 
 const timer = new CountdownTimer({
     selector: '#timer-1',
-    targetDate: new Date('Jul 02, 2021'),
+    targetDate: new Date('Jul 01, 2022'),
 });
 
 timer.start();
